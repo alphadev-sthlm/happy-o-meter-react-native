@@ -1,5 +1,5 @@
 'use strict';
-import React, {
+import {
   AppRegistry,
   Component,
   Dimensions,
@@ -8,27 +8,52 @@ import React, {
   TouchableHighlight,
   View
 } from 'react-native';
+import React from 'react';
 import Camera from 'react-native-camera';
+import Button from 'react-native-button';
 
-class HappyOMeter extends Component {
+class HappyOMeter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {takenPhotoURI: null};
+  }
+
+  setNativeProps(nativeProps) {
+    this._root.setNativeProps(nativeProps);
+  }
+
   render() {
+    var content;
+
+    if(this.state.takenPhotoURI) {
+      content = <image source="{{uri:" this.state.takenphotouri}}="">
+    } else {
+      content = <Camera
+        ref={(cam) => {
+          this.camera = cam;
+        }}
+        style={styles.preview}
+        aspect={Camera.constants.Aspect.fill}>
+        <TouchableHighlight onPress={this.takePicture.bind(this)}>
+          <View
+            ref={component => this._root = component}>
+            <Button containerStyle={styles.button}></Button>
+          </View>
+        </TouchableHighlight>
+      </Camera>
+    }
     return (
       <View style={styles.container}>
-        <Camera
-          ref={(cam) => {
-            this.camera = cam;
-          }}
-          style={styles.preview}
-          aspect={Camera.constants.Aspect.fill}>
-          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
-        </Camera>
+        {content}
       </View>
     );
   }
 
   takePicture() {
     this.camera.capture()
-      .then((data) => console.log(data))
+      .then((data) => {
+        this.setState({takenPhotoURI: data});
+      })
       .catch(err => console.error(err));
   }
 }
@@ -44,13 +69,15 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
     width: Dimensions.get('window').width
   },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    color: '#000',
-    padding: 10,
-    margin: 40
+  button: {
+      flex: 0,
+      backgroundColor: '#fff',
+      padding: 10,
+      width: 70,
+      height: 70,
+      borderWidth: 1,
+      borderRadius: 35,
+      margin: 30
   }
 });
 
