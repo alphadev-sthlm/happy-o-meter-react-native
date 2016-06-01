@@ -25,10 +25,9 @@ class HappyOMeter extends React.Component {
   render() {
     var content;
 
-    if(this.state.takenPhotoURI) {
-      content = <image source="{{uri:" this.state.takenphotouri}}="">
-    } else {
-      content = <Camera
+    return (
+      <View style={styles.container}>
+      <Camera
         ref={(cam) => {
           this.camera = cam;
         }}
@@ -40,11 +39,7 @@ class HappyOMeter extends React.Component {
             <Button containerStyle={styles.button}></Button>
           </View>
         </TouchableHighlight>
-      </Camera>
-    }
-    return (
-      <View style={styles.container}>
-        {content}
+        </Camera>
       </View>
     );
   }
