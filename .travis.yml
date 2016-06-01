@@ -1,0 +1,21 @@
+language: objective-c
+
+before_install:
+  - brew update
+ 
+install:
+  - brew reinstall gradle flow watchman xctool
+ 
+branches:
+  only:
+    - master
+
+script:
+- |
+  cd HappyOMeter/ios
+  npm install
+  flow check
+  npm test
+
+
+
