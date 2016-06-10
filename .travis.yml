@@ -1,7 +1,7 @@
 language: objective-c
 
 before_install:
-  - npm install -g npm@latest node@latest
+  - npm install -g npm@3.9.6 node@v6.2.1
   - brew update
  
 install:
