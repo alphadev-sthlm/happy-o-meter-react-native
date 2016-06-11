@@ -9,8 +9,8 @@ before_install:
  
 install:
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
-  - brew reinstall gradle flow watchman xctool
-  - brew switch flow 0.23.0
+  - brew reinstall gradle watchman xctool
+  - brew reinstall flow 0.23.0
  
 branches:
   only:
