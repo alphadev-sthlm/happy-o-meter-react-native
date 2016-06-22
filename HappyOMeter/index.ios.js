@@ -33,10 +33,10 @@ class HappyOMeter extends React.Component {
         }}
         style={styles.preview}
         aspect={Camera.constants.Aspect.fill}>
-        <TouchableHighlight onPress={this.takePicture.bind(this)}>
+        <TouchableHighlight>
           <View
             ref={component => this._root = component}>
-            <Button containerStyle={styles.button}></Button>
+            <Button containerStyle={styles.button} onPress={this.takePicture.bind(this)}></Button>
           </View>
         </TouchableHighlight>
         </Camera>
@@ -47,6 +47,7 @@ class HappyOMeter extends React.Component {
   takePicture() {
     this.camera.capture()
       .then((data) => {
+        console.log(data);
         this.setState({takenPhotoURI: data});
       })
       .catch(err => console.error(err));
